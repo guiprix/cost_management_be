@@ -9,5 +9,6 @@
 		<class>cost.management.entities.DipendenteCommessa</class>
 		<class>cost.management.entities.DipendenteCommessaPK</class>
 		<class>cost.management.entities.TipologiaContratto</class>
+		<class>cost.management.entities.Utente</class>
 	</persistence-unit>
 </persistence>
