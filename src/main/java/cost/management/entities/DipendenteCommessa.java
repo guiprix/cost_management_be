@@ -31,10 +31,12 @@ public class DipendenteCommessa implements Serializable {
 
 	//bi-directional many-to-one association to Dipendente
 	@ManyToOne
+	@JoinColumn(name= "dipendente_codice_fiscale" ,insertable=false, updatable=false)
 	private Dipendente dipendente;
 
 	//bi-directional many-to-one association to Commessa
 	@ManyToOne
+	@JoinColumn(name="commessa_codice", insertable=false, updatable=false)
 	private Commessa commessa;
 
 	public DipendenteCommessa() {
