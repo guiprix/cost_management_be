@@ -41,6 +41,7 @@ public class DipendenteCommessa implements Serializable {
 
 	public DipendenteCommessa() {
 	}
+	
 
 	public DipendenteCommessaPK getId() {
 		return this.id;

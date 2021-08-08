@@ -43,7 +43,7 @@ public class Dipendente implements Serializable {
 	private List<Contratto> contratti;
 
 	//bi-directional many-to-one association to Azienda
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Azienda azienda;
 
 	//bi-directional many-to-one association to DipendenteCommessa
@@ -52,6 +52,23 @@ public class Dipendente implements Serializable {
 
 	public Dipendente() {
 	}
+	
+	public Dipendente(String codiceFiscale, String cellulare, String cognome, Date dataNascita, String domicilio,
+			String email, String luogoNascita, String nome, String residenza, Azienda azienda) {
+		super();
+		this.codiceFiscale = codiceFiscale;
+		this.cellulare = cellulare;
+		this.cognome = cognome;
+		this.dataNascita = dataNascita;
+		this.domicilio = domicilio;
+		this.email = email;
+		this.luogoNascita = luogoNascita;
+		this.nome = nome;
+		this.residenza = residenza;
+		this.azienda = azienda;
+		
+	}
+
 
 	public String getCodiceFiscale() {
 		return this.codiceFiscale;
@@ -140,19 +157,7 @@ public class Dipendente implements Serializable {
 		return contratto;
 	}
 
-	public Dipendente(String codiceFiscale, String cellulare, String cognome, Date dataNascita, String domicilio,
-			String email, String luogoNascita, String nome, String residenza) {
-		super();
-		this.codiceFiscale = codiceFiscale;
-		this.cellulare = cellulare;
-		this.cognome = cognome;
-		this.dataNascita = dataNascita;
-		this.domicilio = domicilio;
-		this.email = email;
-		this.luogoNascita = luogoNascita;
-		this.nome = nome;
-		this.residenza = residenza;
-	}
+	
 
 	public Contratto removeContratto(Contratto contratto) {
 		getContratti().remove(contratto);
