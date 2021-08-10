@@ -1,5 +1,8 @@
 package cost.management.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,16 @@ public class DipendenteServiceImpl implements DipendenteService {
 	public Dipendente addDipendente(Dipendente dipendente) {
 			
 		return dipRepo.save(dipendente);
+	}
+	
+	@Override
+	public List<Dipendente> findAllDipendenti(){
+		List<Dipendente> listaDipendenti = new ArrayList<Dipendente>();
+		
+		listaDipendenti = dipRepo.findAll();
+		
+		return listaDipendenti;
+		
 	}
 	
 

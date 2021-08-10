@@ -28,7 +28,7 @@ public class CostManagementApplication  implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
+		/* TODO Auto-generated method stub
 		Azienda azienda = new Azienda("nike");
 		Date newDate = new Date();
 		Dipendente dip= new Dipendente();
@@ -42,6 +42,7 @@ public class CostManagementApplication  implements CommandLineRunner{
 		
 		dipService.addDipendente(dip);
 		dipService.addDipendente(dip1);
+		*/
 	}
 
 }

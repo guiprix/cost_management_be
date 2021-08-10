@@ -2,6 +2,9 @@ package cost.management.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class Dipendente implements Serializable {
 	private String cognome;
 
 	@Temporal(TemporalType.DATE)
+	//@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Column(name="data_nascita")
 	private Date dataNascita;
 
@@ -43,19 +47,20 @@ public class Dipendente implements Serializable {
 	private List<Contratto> contratti;
 
 	//bi-directional many-to-one association to Azienda
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Azienda azienda;
 
 	//bi-directional many-to-one association to DipendenteCommessa
-	@OneToMany(mappedBy="dipendente")
-	private List<DipendenteCommessa> dipendenteCommesse;
+	//@OneToMany(mappedBy="dipendente")
+	//private List<DipendenteCommessa> dipendenteCommesse;
 
+	
 	public Dipendente() {
 	}
 	
 	public Dipendente(String codiceFiscale, String cellulare, String cognome, Date dataNascita, String domicilio,
 			String email, String luogoNascita, String nome, String residenza, Azienda azienda) {
-		super();
+		
 		this.codiceFiscale = codiceFiscale;
 		this.cellulare = cellulare;
 		this.cognome = cognome;
@@ -141,7 +146,7 @@ public class Dipendente implements Serializable {
 	public void setResidenza(String residenza) {
 		this.residenza = residenza;
 	}
-
+/*
 	public List<Contratto> getContratti() {
 		return this.contratti;
 	}
@@ -157,7 +162,7 @@ public class Dipendente implements Serializable {
 		return contratto;
 	}
 
-	
+
 
 	public Contratto removeContratto(Contratto contratto) {
 		getContratti().remove(contratto);
@@ -165,7 +170,8 @@ public class Dipendente implements Serializable {
 
 		return contratto;
 	}
-
+	
+	*/
 	public Azienda getAzienda() {
 		return this.azienda;
 	}
@@ -173,7 +179,8 @@ public class Dipendente implements Serializable {
 	public void setAzienda(Azienda azienda) {
 		this.azienda = azienda;
 	}
-
+	
+	/*
 	public List<DipendenteCommessa> getDipendenteCommessas() {
 		return this.dipendenteCommesse;
 	}
@@ -195,5 +202,15 @@ public class Dipendente implements Serializable {
 
 		return dipendenteCommessa;
 	}
+	*/
+
+	@Override
+	public String toString() {
+		return "Dipendente [codiceFiscale=" + codiceFiscale + ", cellulare=" + cellulare + ", cognome=" + cognome
+				+ ", dataNascita=" + dataNascita + ", domicilio=" + domicilio + ", email=" + email + ", luogoNascita="
+				+ luogoNascita + ", nome=" + nome + ", residenza=" + residenza + "]";
+	}
+	
+	
 
 }
