@@ -5,6 +5,8 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +29,6 @@ public class Dipendente implements Serializable {
 	private String cognome;
 
 	@Temporal(TemporalType.DATE)
-	//@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Column(name="data_nascita")
 	private Date dataNascita;
 
@@ -146,7 +147,7 @@ public class Dipendente implements Serializable {
 	public void setResidenza(String residenza) {
 		this.residenza = residenza;
 	}
-/*
+
 	public List<Contratto> getContratti() {
 		return this.contratti;
 	}
@@ -171,7 +172,7 @@ public class Dipendente implements Serializable {
 		return contratto;
 	}
 	
-	*/
+	
 	public Azienda getAzienda() {
 		return this.azienda;
 	}

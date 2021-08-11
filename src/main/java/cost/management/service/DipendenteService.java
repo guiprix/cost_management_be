@@ -9,4 +9,8 @@ public interface DipendenteService {
 	Dipendente addDipendente(Dipendente dipendente);
 
 	List<Dipendente> findAllDipendenti();
+
+	Dipendente updateDipendente(Dipendente dipendente, String codiceFiscale);
+
+	Dipendente findDipendenteByCodiceFiscale(String codiceFiscale);
 }
