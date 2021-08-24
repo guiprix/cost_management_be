@@ -3,6 +3,8 @@ package cost.management.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cost.management.entities.Dipendente;
@@ -27,7 +28,7 @@ public class DipendenteController {
 	private DipendenteService dipService;
 	
 	@PostMapping("/dipendenti")
-	public Dipendente addDipendente(@RequestBody Dipendente dipendente) {
+	public Dipendente addDipendente(@Valid @RequestBody Dipendente dipendente) {
 		/*
 		Dipendente newDip = new Dipendente();
 		newDip.setCodiceFiscale(dipendente.getCodiceFiscale());

@@ -2,6 +2,11 @@ package cost.management.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,24 +28,33 @@ public class Dipendente implements Serializable {
 	@Id
 	@Column(name="codice_fiscale")
 	private String codiceFiscale;
-
+	
+	@NotBlank
 	private String cellulare;
-
+	
+	@NotBlank
+	private String nome;
+	
+	@NotBlank
 	private String cognome;
 
+	
 	@Temporal(TemporalType.DATE)
-	@Column(name="data_nascita")
+	@Column(name="data_nascita", nullable=false)
 	private Date dataNascita;
 
 	private String domicilio;
-
+	
+	@NotBlank
+	@Email(message="email should be valid")
 	private String email;
 
+	@NotBlank
 	@Column(name="luogo_nascita")
 	private String luogoNascita;
 
-	private String nome;
-
+	
+	@NotBlank
 	private String residenza;
 
 	//bi-directional many-to-one association to Contratto

@@ -2,15 +2,27 @@ package cost.management.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
 import cost.management.entities.Dipendente;
 import cost.management.repository.DipendenteRepository;
 
 @Service
 public class DipendenteServiceImpl implements DipendenteService {
+	
+	Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
+	
+	
+	//@Autowired
+	//private Validator validator;
+	
 	
 	//inietta il repository nel service
 	@Autowired
@@ -19,8 +31,21 @@ public class DipendenteServiceImpl implements DipendenteService {
 	//aggiungi dipendente
 	@Override
 	public Dipendente addDipendente(Dipendente dipendente) {
+		String message  = "Dipendente NON INSERITO/AGGIORNATO!!";
+		/*
+      Set<ConstraintViolation<Dipendente>> violations = validator.validate(dipendente);
+
+        if (!violations.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<Dipendente> constraintViolation : violations) {
+                sb.append(constraintViolation.getMessage());
+            }
+            throw new ConstraintViolationException("Error occurred: " + sb.toString(), violations);
+        }*/
 			
-		return dipRepo.save(dipendente);
+				
+				return dipRepo.save(dipendente);
+				
 	}
 	
 	@Override
