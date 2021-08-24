@@ -10,6 +10,5 @@ import cost.management.entities.Dipendente;
 @Repository
 public interface DipendenteRepository extends JpaRepository<Dipendente, String> {
 
-	public Dipendente findDipendenteByCodiceFiscale(String codiceFiscale);
 	
 }

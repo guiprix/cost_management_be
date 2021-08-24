@@ -2,6 +2,7 @@ package cost.management.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -16,77 +17,101 @@ import cost.management.repository.DipendenteRepository;
 
 @Service
 public class DipendenteServiceImpl implements DipendenteService {
-	
+
 	Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
-	
-	
-	//@Autowired
-	//private Validator validator;
-	
-	
-	//inietta il repository nel service
+
+	// inietta il repository nel service
 	@Autowired
 	private DipendenteRepository dipRepo;
-	
-	//aggiungi dipendente
+
+	// aggiungi dipendente
 	@Override
 	public Dipendente addDipendente(Dipendente dipendente) {
-		String message  = "Dipendente NON INSERITO/AGGIORNATO!!";
-		/*
-      Set<ConstraintViolation<Dipendente>> violations = validator.validate(dipendente);
+		String message = "Dipendente NON INSERITO!!";
 
-        if (!violations.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<Dipendente> constraintViolation : violations) {
-                sb.append(constraintViolation.getMessage());
-            }
-            throw new ConstraintViolationException("Error occurred: " + sb.toString(), violations);
-        }*/
+		try {
+			return dipRepo.save(dipendente);
 			
-				
-				return dipRepo.save(dipendente);
-				
+		} catch (IllegalArgumentException ex) {
+
+			log.info(message);
+			ex.printStackTrace();
+		}
+
+		return null;
+
 	}
-	
+
 	@Override
-	public Dipendente findDipendenteByCodiceFiscale(String codiceFiscale) {
-		
-		return dipRepo.findDipendenteByCodiceFiscale(codiceFiscale);
+	public Optional<Dipendente> findDipendenteByCodiceFiscale(String codiceFiscale) {
+
+		return dipRepo.findById(codiceFiscale);
 	}
-	
-	
+
 	@Override
-	public List<Dipendente> findAllDipendenti(){
+	public List<Dipendente> findAllDipendenti() {
 		List<Dipendente> listaDipendenti = new ArrayList<Dipendente>();
 		
 		listaDipendenti = dipRepo.findAll();
 		
-		return listaDipendenti;
-		
-	}
-	
-	
-	@Override 
-	public Dipendente updateDipendente(Dipendente dipendente, String codiceFiscale) {
-		
-		Dipendente oldDipendente = dipRepo.findDipendenteByCodiceFiscale(codiceFiscale);
-		
-		//oldDipendente.setCodiceFiscale(dipendente.getCodiceFiscale());
-		oldDipendente.setAzienda(dipendente.getAzienda());
-		oldDipendente.setNome(dipendente.getNome());
-		oldDipendente.setCognome(dipendente.getCognome());
-		oldDipendente.setCellulare(dipendente.getCellulare());
-		oldDipendente.setDataNascita(dipendente.getDataNascita());
-		oldDipendente.setEmail(dipendente.getEmail());
-		oldDipendente.setResidenza(dipendente.getResidenza());
-		oldDipendente.setLuogoNascita(dipendente.getLuogoNascita());
-		
-		System.out.println("*********** updated dipdendente "+ oldDipendente +"**********************");
-		return addDipendente(oldDipendente);
-		
+		if(!listaDipendenti.isEmpty()) {
+			log.info("La lista di dipendenti e' piena");
+			
+			return listaDipendenti;
+		}else {
+			log.info("la lista dei dipendenti e' vuota");
+		}
+
+		return null;
+
 	}
 
-	
-	
+	@Override
+	public Dipendente updateDipendente(Dipendente dipendente, String codiceFiscale) {
+
+		Dipendente oldDipendente = null;
+
+		Optional<Dipendente> oldDipendenteTemp = dipRepo.findById(codiceFiscale);
+
+		if (oldDipendenteTemp.isPresent()) {
+			oldDipendente = oldDipendenteTemp.get();
+
+			//oldDipendente.setCodiceFiscale(codiceFiscale); puo' cambiare?
+			oldDipendente.setAzienda(dipendente.getAzienda());
+			oldDipendente.setNome(dipendente.getNome());
+			oldDipendente.setCognome(dipendente.getCognome());
+			oldDipendente.setCellulare(dipendente.getCellulare());
+			oldDipendente.setDataNascita(dipendente.getDataNascita());
+			oldDipendente.setEmail(dipendente.getEmail());
+			oldDipendente.setResidenza(dipendente.getResidenza());
+			oldDipendente.setLuogoNascita(dipendente.getLuogoNascita());
+			System.out.println("*********** updated dipdendente " + oldDipendente + "**********************");
+			return addDipendente(oldDipendente);
+
+		} else {
+			log.info("*******Dipendente non trovato!!*****");
+		}
+		return null;
+
+	}
+
+	@Override
+	public void deleteDipendente(String codiceFiscale) {
+
+		Optional<Dipendente> dipendenteToDelete = dipRepo.findById(codiceFiscale);
+
+		if (dipendenteToDelete.isPresent()) {
+			log.info("***Dipendente trovato!***");
+
+		}
+		try {
+			dipRepo.deleteById(codiceFiscale);
+			log.info("***Dipendente cancellato!***");
+			
+		} catch (IllegalArgumentException ex) {
+			log.info("***Dipendente NON cancellato!***");
+			ex.printStackTrace();
+		}
+	}
 
 }
