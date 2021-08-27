@@ -27,15 +27,16 @@ public class Dipendente implements Serializable {
 
 	@Id
 	@Column(name="codice_fiscale")
+	@Pattern(regexp="^[a-zA-Z0-9]{16}$")
 	private String codiceFiscale;
 	
-	@NotBlank
+	@NotBlank(message="Cellulare e' obbligatorio")
 	private String cellulare;
 	
-	@NotBlank
+	@NotBlank(message="Nome e' obbligatorio")
 	private String nome;
 	
-	@NotBlank
+	@NotBlank(message="Cognome e' obbligatorio")
 	private String cognome;
 
 	
@@ -46,15 +47,15 @@ public class Dipendente implements Serializable {
 	private String domicilio;
 	
 	@NotBlank
-	@Email(message="email should be valid")
+	@Email(message="La email deve essere un'email valida")
 	private String email;
 
-	@NotBlank
+	@NotBlank(message="luogo di nascita e' obbligatorio")
 	@Column(name="luogo_nascita")
 	private String luogoNascita;
 
 	
-	@NotBlank
+	@NotBlank(message="residenza e' obbligatorio")
 	private String residenza;
 
 	//bi-directional many-to-one association to Contratto
