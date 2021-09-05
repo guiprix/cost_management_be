@@ -30,32 +30,17 @@ public class DipendenteController {
 
 	@Autowired
 	private DipendenteService dipService;
-
+	
 	// inserici un dipendente nel db
-	@PostMapping("/dipendenti")
-	public Dipendente addDipendente(@Valid @RequestBody Dipendente dipendente) {
-		/*
-		 * Dipendente newDip = new Dipendente();
-		 * newDip.setCodiceFiscale(dipendente.getCodiceFiscale());
-		 * newDip.setNome(dipendente.getNome());
-		 * newDip.setCognome(dipendente.getCognome());
-		 * newDip.setCellulare(dipendente.getCellulare());
-		 * newDip.setDataNascita(dipendente.getDataNascita());
-		 * newDip.setEmail(dipendente.getEmail());
-		 * newDip.setResidenza(dipendente.getResidenza());
-		 * newDip.setLuogoNascita(dipendente.getLuogoNascita());
-		 * newDip.setAzienda(dipendente.getAzienda());
-		 * 
-		 * System.out.println("########### " +newDip +" ################");
-		 */
-		return dipService.addDipendente(dipendente);
+	@PostMapping("/dipendenti/{id}")
+	public Dipendente addDipendente(@Valid @RequestBody Dipendente dipendente, @PathVariable String id) { 
+		return dipService.addDipendente(dipendente, Integer.parseInt(id));
 
 	}
 
 	// trova tutti i dipendenti
 	@GetMapping("/dipendenti")
 	public List<Dipendente> findAllDipendenti() {
-
 		List<Dipendente> listaDipendenti = new ArrayList<Dipendente>();
 		listaDipendenti = dipService.findAllDipendenti();
 		return listaDipendenti;
@@ -64,23 +49,22 @@ public class DipendenteController {
 	// find dipendente by codice fiscale
 	@GetMapping("/dipendenti/{codiceFiscale}")
 	public Optional<Dipendente> findDipendenteByCodiceFiscale(@PathVariable String codiceFiscale) {
-
 		return dipService.findDipendenteByCodiceFiscale(codiceFiscale);
 	}
 
-	// update un dipendente
-	@PutMapping("/dipendenti/{codiceFiscale}")
-	public Dipendente updateDipendente(@RequestBody Dipendente dipendente, @PathVariable String codiceFiscale) {
-
-		return dipService.updateDipendente(dipendente, codiceFiscale);
+	//update un dipendente
+	@PutMapping("/dipendenti/{codiceFiscale}/{aziendaId}")
+	public Dipendente updateDipendente(@RequestBody Dipendente dipendente, 
+			@PathVariable String codiceFiscale, @PathVariable int aziendaId) {
+		System.out.println("INSIDE UPDATE METHOD CONTROLLER");
+		System.out.println("CODICE FISCALE :"+ codiceFiscale +"AZIENDAID :"+ aziendaId);
+		return dipService.updateDipendente(dipendente, codiceFiscale,aziendaId);
 	}
 
-	// delete un dipendente
+	//delete un dipendente
 	@DeleteMapping("/dipendenti/{codiceFiscale}")
 	public Map<String, Boolean> deleteDipendente(@PathVariable String codiceFiscale) {
-
 		Map<String, Boolean> deletion = new HashMap<>();
-
 		dipService.deleteDipendente(codiceFiscale);
 		deletion.put("Dipendente Deleted", Boolean.TRUE);
 		return deletion;

@@ -10,5 +10,10 @@
 		<class>cost.management.entities.DipendenteCommessaPK</class>
 		<class>cost.management.entities.TipologiaContratto</class>
 		<class>cost.management.entities.Utente</class>
+		
+		<properties>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
+           
+        </properties>
 	</persistence-unit>
 </persistence>

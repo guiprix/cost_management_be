@@ -11,9 +11,12 @@ import javax.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -41,7 +44,8 @@ public class Dipendente implements Serializable {
 
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="data_nascita", nullable=false)
+	@JsonFormat(pattern="dd/MM/yyyy",shape=JsonFormat.Shape.STRING)
+	@Column(name="data_nascita")
 	private Date dataNascita;
 
 	private String domicilio;
@@ -55,7 +59,7 @@ public class Dipendente implements Serializable {
 	private String luogoNascita;
 
 	
-	@NotBlank(message="residenza e' obbligatorio")
+	@NotBlank(message="La residenza e' obbligatoria")
 	private String residenza;
 
 	//bi-directional many-to-one association to Contratto
@@ -64,12 +68,14 @@ public class Dipendente implements Serializable {
 
 	//bi-directional many-to-one association to Azienda
 	@ManyToOne
+	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Azienda azienda;
 
 	//bi-directional many-to-one association to DipendenteCommessa
 	//@OneToMany(mappedBy="dipendente")
 	//private List<DipendenteCommessa> dipendenteCommesse;
 
+	private long age;
 	
 	public Dipendente() {
 	}
@@ -226,6 +232,17 @@ public class Dipendente implements Serializable {
 				+ ", dataNascita=" + dataNascita + ", domicilio=" + domicilio + ", email=" + email + ", luogoNascita="
 				+ luogoNascita + ", nome=" + nome + ", residenza=" + residenza + "]";
 	}
+
+	public long getAge() {
+		return age;
+	}
+
+	public void setAge(long age) {
+		this.age = age;
+	}
+
+	
+
 	
 	
 

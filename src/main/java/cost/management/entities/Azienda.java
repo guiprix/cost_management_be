@@ -18,6 +18,7 @@ public class Azienda implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	@Column(name="nome")
 	private String nome;
 
 	//bi-directional many-to-one association to Dipendente
